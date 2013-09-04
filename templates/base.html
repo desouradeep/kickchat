@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Unicorn Admin</title>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/static/css/bootstrap-responsive.min.css" />
+		<link rel="stylesheet" href="/static/css/unicorn.main.css" />
+		<link rel="stylesheet" href="/static/css/unicorn.grey.css" class="skin-color" />	
+	</head>
+	<body>
+		
+		
+		<div id="header">
+			<h1><a href="./dashboard.html">Unicorn Admin</a></h1>		
+		</div>
+		
+		</div>
+		
+            
+		<div id="sidebar">
+			<ul>
+				<li><a href="index.html"><i class="icon icon-home"></i> <span>Chat</span></a></li>
+				<li><a href="buttons.html"><i class="icon icon-tint"></i> <span>Profile</span></a></li>
+				<li><a href="interface.html"><i class="icon icon-pencil"></i> <span>Search</span></a></li>
+				<li><a href="tables.html"><i class="icon icon-th"></i> <span>Groups</span></a></li>
+			</ul>
+		
+		</div>
+		{% block container_content %}{% endblock %}
+            <script src="/static/js/jquery.min.js"></script>
+            <script src="/static/js/jquery-1.10.2.js"></script>
+            <script src="/static/js/bootstrap.min.js"></script>
+            <script src="/static/js/unicorn.js"></script>
+            <script src="/static/js/unicorn.chat.js"></script>
+	</body>
+</html>
