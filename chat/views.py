@@ -20,4 +20,4 @@ def index(request):
     context = RequestContext(request, {
         'msg' : messages,
             })
-    return render_to_response('inner.html', context_instance=context)
+    return render_to_response('chat.html', context_instance=context)
