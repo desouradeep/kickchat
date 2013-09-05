@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block container_content %}
-  <div class="row">
-  <div class="list-group col-md-2">
+  <div class="row" style="margin-left:-100px">
+  <div class="list-group col-md-2 chat-messages" style="height:450px">
     <a href="#" class="list-group-item active">
       channel 1
     </a>
@@ -9,10 +9,24 @@
     <a href="#" class="list-group-item">channel 3</a>
     <a href="#" class="list-group-item">channel 4</a>
     <a href="#" class="list-group-item">channel 5</a>
+    <a href="#" class="list-group-item">channel 2</a>
+    <a href="#" class="list-group-item">channel 3</a>
+    <a href="#" class="list-group-item">channel 4</a>
+    <a href="#" class="list-group-item">channel 5</a>
+    <a href="#" class="list-group-item">channel 2</a>
+    <a href="#" class="list-group-item">channel 3</a>
+    <a href="#" class="list-group-item">channel 4</a>
+    <a href="#" class="list-group-item">channel 5</a>
   </div>
-  <div class="col-md-8">
-      <table class="table table-striped table-hover">
-      <thead>
+  
+  
+  <div class="widget-content nopadding">
+  <div class="chat-content panel-left">
+	      <div id="chat-messages" class="chat-messages">
+	
+  <div class="col-md-12">
+      <table class="table table-striped table-hover msg-box">
+      <thead class="nopadding">
         <tr>
             <th style='width:10%;'></th>
             <th style='width:70%;'></th>
@@ -22,7 +36,7 @@
       <tbody>
         {% for m in msg %}
             <tr>
-                <td>
+                <td id="chat-messages-inner">
                     <a href='#'><b>{{ m.username }}</b></a>
                 </td>
                 <td>
@@ -30,26 +44,30 @@
                 </td>
                 <td style='font-size:10px;'>
                     {{ m.time }}
-                </td>
+            </td>
             </tr>
         {% endfor %}
       </tbody>
       </table>
-      
+	
+     </div>
+     </div>
+     
 	   <form method="POST" accept-charset="UTF-8">{% csrf_token %}
-	   <div class='row'>
+	   
 	      <div class='col-lg-11' >
-		  <input type="text" class="form-control pull-left" placeholder="Text input" name='msg'>
+		  <input type="text" class="form-control input-box" placeholder="Text input" name='msg'style="width:875px">
 	      </div>
-	      <div class='col-lg-1'>
+	      <div class='col-lg-1 chat-message nopadding'>
 		  <button class="btn btn-success pull-right">Send</button>
 	      </div>
-	   </div>
-	  </form>
+	   
+
+	   
+	 </form>
       </div>
-      
-  
-  <div class="list-group col-md-2">
+      </div>
+  	<div class="list-group col-md-2 chat-users panel-right chat-messages" >
     <a href="#" class="list-group-item active">
       user 1
     </a>
@@ -57,7 +75,17 @@
     <a href="#" class="list-group-item">user 3</a>
     <a href="#" class="list-group-item">user 4</a>
     <a href="#" class="list-group-item">user 5</a>
+     <a href="#" class="list-group-item">user 2</a>
+    <a href="#" class="list-group-item">user 3</a>
+    <a href="#" class="list-group-item">user 4</a>
+    <a href="#" class="list-group-item">user 5</a>
+     <a href="#" class="list-group-item">user 2</a>
+    <a href="#" class="list-group-item">user 3</a>
+    <a href="#" class="list-group-item">user 4</a>
+    <a href="#" class="list-group-item">user 5</a>
   </div>
-  </div>
+</div>
+
+  
   
 {% endblock %}
