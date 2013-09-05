@@ -9,7 +9,7 @@
 .chat-messages {
       background: none repeat scroll 0px 0px rgb(253, 253, 253);
       border: 1px solid rgb(221, 221, 221);
-      height: 450px;
+      height: 490px;
       overflow: auto;
       position: relative;
       
@@ -19,7 +19,7 @@
   }
 
 .chat-content {
-      height: 450px;
+      height: 480px;
       padding: 0px;
         }
 .panel-left {
@@ -49,7 +49,7 @@
        position: absolute;
        right:0px;
        top: 60px;
-       height: 450px;
+       
        }
 
 .chat-messages-inner  {
@@ -59,8 +59,13 @@
 .chat-message button {
       float: right;}
 
-.chat-message .input-box {
+.chat-message input-box {
       display: block;
           margin-right: 90px;
           padding-top:0px;
         }
+ .footer{font-size:15px;text-align:center;float:none;}
+   .nonav{margin-bottom:0px;min-height:35px;position:relative;margin-top:10px;}
+   .unipad{padding:3px;}
+
+  .nomargin{margin-bottom:6px;}
