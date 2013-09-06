@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+<script type='text/javascript'>
+  $(document).ready(function(){
+	chat = $('#chat')[0]
+	chat.click(chat.attr('class','active')
+    })
+    
+</script>
 {% block container_content %}
   <div class="row" style="margin-left:-100px">
   <div class="list-group col-md-2 chat-messages">

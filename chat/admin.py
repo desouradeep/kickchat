@@ -1,5 +1,6 @@
 from django.contrib import admin
-from chat.models import user, message
+from chat.models import message
+from profiles.models import user
 
 class chatsAdmin(admin.ModelAdmin):
     pass
