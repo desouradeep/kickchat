@@ -24,4 +24,4 @@ def index(request):
         'msg' : messages,
         'activated_navbar_element': activated_navbar_element,
             })
-    return render_to_response('chat.html', context_instance=context)
+    return render_to_response('chat/chat.html', context_instance=context)

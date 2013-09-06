@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block container_content %}
+username: {{ current_user.username }}
+<br>
+Roll no: {{current_user.roll_no }}
+<br>
+Full name: {{current_user.fullname}}
+<br>
+fb_profile: {{current_user.fb_profile }}
+<br>
+email_id: {{current_user.email_id}}
+{% endblock %}
