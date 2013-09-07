@@ -11,9 +11,12 @@ from profiles.models import user
 activated_navbar_element = 'chat'
 
 def index(request):
+    if not request.user.is_authenticated():
+        return redirect('/profile/login')
+    
     if request.method == 'POST':
         time = datetime.now()
-        msg = message(username='SDE',
+        msg = message(username=request.user.username,
                       time=datetime.now(),
                       message=request.POST['msg']
               )

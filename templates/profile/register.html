@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block container_content %}
+<form method="POST" accept-charset="UTF-8">{% csrf_token %}
+<br><br>
+    <div class='row' style='padding-left:10%'>
+    {% for i in details %}
+        {% for k,v in i.iteritems %} 
+            <div class='col-md-2'>
+                <b>{{k}} :</b>
+            </div>
+            <div class='col-md-4'>
+                <input class='form-control input-box required' type='{{v.type}}' placeholder='{{k}}' name='{{v.name}}'>
+            </div>
+            <br><br>
+        {% endfor %}
+    {% endfor %}
+    </div>
+    
+    <br>
+    <button type='submit' class="btn btn-success pull-right">Register</button>
+</form>
+    {% endblock %}
