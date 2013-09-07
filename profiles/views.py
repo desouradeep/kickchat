@@ -79,7 +79,7 @@ def register(request):
                 {'Last Name': {'type':'text', 'name':'last_name'}},
                 {'Email': {'type':'email', 'name':'email_id'}},
                 {'Password': {'type':'password', 'name':'password'}},
-                {'Confirm Password': {'type':'password', 'name':'password'}},
+                {'Confirm Password': {'type':'password', 'name':'password2'}},
                 {'Roll No.': {'type':'number', 'name':'roll_no'}},
                 {'Facebook Profile': {'type':'url', 'name':'fb_profile'}},
     ]
