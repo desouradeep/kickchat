@@ -49,9 +49,14 @@ def index(request):
     if not request.user.is_authenticated():
         return redirect('/profile/login')
     current_user = user2.objects.get(username=request.user.username)
+    if request.GET.get('username'):
+        query_user = user2.objects.get(username=request.GET.get('username'))
+    else:
+        query_user = current_user
     context = RequestContext(request, {
         'activated_navbar_element': activated_navbar_element,
         'current_user' : current_user,
+        'query_user' : query_user,
         'online' : '1'
         })
     return render_to_response('profile/profile.html', context_instance=context)

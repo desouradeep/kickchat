@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     # url(r'^offchat/', include('offchat.foo.urls')),
     url(r'^chat/', include('chat.urls',namespace='chat')),
     url(r'^profile/', include('profiles.urls',namespace='profile')),
+    url(r'^search/', include('search.urls',namespace='search')),
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
