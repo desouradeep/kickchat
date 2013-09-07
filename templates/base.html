@@ -36,8 +36,13 @@
             <li id='search'><a href="/search">Search</a></li>
             <li id='groups'><a href="/groups">Groups</a></li>
             <li id='about'><a href="/about">About</a></li>
-            
-          </ul>
+        </ul>
+        <ul class='nav navbar-nav navbar-right'>
+            {% if online == '1' %}
+            <li><a>Logged in as  <b>{{current_user.username}}</b></a></li>
+            <li  id='logout'><a href="/profile/logout">Logout</a></li>
+            {% endif %}
+        </ul>
           </div><!--/.nav-collapse -->
       </div>
     </div>

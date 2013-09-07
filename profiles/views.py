@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.models import User
 activated_navbar_element = 'profile'
-from profiles.models import user
+from profiles.models import user as user2
 from ipdb import set_trace as st
 
 def login_user(request):
@@ -19,6 +19,9 @@ def login_user(request):
         # the password verified for the user
             if user.is_active:
                 login(request, user)
+                client = user2.objects.get(username=username)
+                client.is_online = True
+                client.save()
                 return redirect('/profile')
                 auth = 'active'
                 print("User is valid, active and authenticated")
@@ -30,22 +33,26 @@ def login_user(request):
     context = RequestContext(request, {
         'invalid' : invalid,
         'activated_navbar_element': activated_navbar_element,
-       # 'user' : user,
+        'online' : '0',
             })
     #st()
     return render_to_response('profile/login.html',context_instance=context)
 
 def logout_user(request):
+    client = user2.objects.get(username=request.user.username)
+    client.is_online = False
+    client.save()
     logout(request)
     return redirect('/profile')
 
 def index(request):
     if not request.user.is_authenticated():
         return redirect('/profile/login')
-    current_user = user.objects.get(username=request.user.username)
+    current_user = user2.objects.get(username=request.user.username)
     context = RequestContext(request, {
         'activated_navbar_element': activated_navbar_element,
-        'current_user' : current_user,  
+        'current_user' : current_user,
+        'online' : '1'
         })
     return render_to_response('profile/profile.html', context_instance=context)
 
@@ -63,7 +70,7 @@ def register(request):
         new_user.is_staff = False
         new_user.is_superuser = False
         
-        new_user_basic = user(
+        new_user_basic = user2(
                 username = request.POST['username'],
                 roll_no = request.POST['roll_no'],
                 fullname = (request.POST['first_name'] + ' ' + request.POST['last_name']),
@@ -87,5 +94,6 @@ def register(request):
     context = RequestContext(request, {
         'details' : details,
         'activated_navbar_element' : activated_navbar_element,
+        'online' : '0',
         })
     return  render_to_response('profile/register.html',context_instance=context)

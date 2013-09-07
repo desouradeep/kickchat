@@ -8,3 +8,4 @@ class user(models.Model):
     fullname = models.CharField(max_length=200)
     fb_profile = models.URLField(max_length=200, unique=True)
     email_id = models.EmailField(max_length=100, unique=True)
+    is_online = models.BooleanField()
