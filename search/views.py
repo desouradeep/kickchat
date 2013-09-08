@@ -11,6 +11,8 @@ from profiles.models import user as user2
 activated_navbar_element = 'search'
 
 def index(request):
+    if not request.user.is_authenticated():
+        return redirect('/profile/login')
     user_not_found = False
     if request.GET.get('username'):
         client = user2.objects.filter(username=request.GET.get('username'))
