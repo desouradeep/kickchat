@@ -11,10 +11,14 @@
   }
   </style>
   <script src="{{STATIC_URL}}js/jquery-1.10.2.min.js"></script> 
+  <script src="{{STATIC_URL}}js/mCustomScrollBar.js"></script>
   <script type='text/javascript'>
   $(document).ready(function(){
-   element = $('#{{ activated_navbar_element }}')
-   element.attr('class','active')
+  element = $('#{{ activated_navbar_element }}')
+  element.attr('class','active')
+  $('#chat-page').height($(window).height()-80)
+  $(window).resize(function() {
+  $('#chat-page').height($(window).height()-80)
 })
 
   </script>
