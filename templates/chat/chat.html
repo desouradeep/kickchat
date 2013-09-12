@@ -72,11 +72,11 @@ $(document).ready(function(){
 
         <div class='col-xs-2' style='height:100%;'>
             <div class="list-group chat-messages" >
-                {% for i in users %}
-                {% if i.username ==  current_user.username %}
-                <a href="#" class="list-group-item active" >{{i.username}}</a>
+                {% for i in online_users %}
+                {% if i.user.username ==  current_user.user.username %}
+                <a href="#" class="list-group-item active" >{{i.user.username}}</a>
                 {% else %}
-                <a href="#" class="list-group-item" >{{i.username}}</a>
+                <a href="#" class="list-group-item" >{{i.user.username}}</a>
                 {% endif %}
                 {% endfor %}
             </div>

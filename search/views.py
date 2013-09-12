@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from datetime import datetime
 from ipdb import set_trace as st
 from chat.models import message
-from profiles.models import user as user2
+from profiles.models import CustomUser
 
 activated_navbar_element = 'search'
 
@@ -15,7 +15,7 @@ def index(request):
         return redirect('/profile/login')
     user_not_found = False
     if request.GET.get('username'):
-        client = user2.objects.filter(username=request.GET.get('username'))
+        CustomClient = CustomUser.objects.filter(username=request.GET.get('username'))
         if len(client) == 1:
             return redirect('/profile?username='+client[0].username)
         else:
