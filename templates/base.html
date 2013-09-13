@@ -13,9 +13,13 @@
   <script src="{{STATIC_URL}}js/jquery-1.10.2.min.js"></script> 
   <script type='text/javascript'>
   $(document).ready(function(){
-   element = $('#{{ activated_navbar_element }}')
-   element.attr('class','active')
-})
+      element = $('#{{ activated_navbar_element }}')
+      element.attr('class','active')
+      $('#chat-page').height($(window).height()-80)
+      $(window).resize(function() {
+          $('#chat-page').height($(window).height()-80)
+      })
+  })
 
   </script>
   
@@ -38,21 +42,42 @@
         </ul>
         <ul class='nav navbar-nav navbar-right'>
             {% if online == '1' %}
-            <li><a>Logged in as  <b>{{current_user.username}}</b></a></li>
-            <li  id='logout'><a href="/profile/logout">Logout</a></li>
+            <li><a>Logged in as  <b>{{current_user.user.username}}</b></a></li>
+            <li><a href="/profile/logout">Logout</a></li>
             {% else %}
-            <form method='POST' class='navbar-form navbar-right'>{% csrf_token %}
-                <div class='form-group'>
-                    <input class='form-control' type='text' placeholder='Username' name='username'>
+            <li id='Sign-Up'><a href="/profile/register">Register</a></li>
+            <li class="divider-vertical"></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" href='#' data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                <div class="dropdown-menu" style='height:250px;width:250px;'>
+                    <div style="padding-left:20px;padding-right:20px;padding-top:5px;">
+                        <h4>Sign In to start Kicking!</h4><hr>
+                        <form method="POST" accept-charset="UTF-8">{% csrf_token %}
+                            <input class='form-control' id="user_username" type="text" name="username" size=25 placeholder='Username'>
+                            <br>
+                            <input class='form-control' id="user_password" type="password" name="password" size=25 placeholder="Password" >
+                            <br>
+                            <div class="well well-sm" style='padding-top:5px;padding-bottom:35px;' >
+                                <input class="btn btn-primary btn-sm pull-right" type="submit" name="commit" value="Sign In" >
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class='form-group'>
-                    <input class='form-control' type='password' placeholder='Password' name='password'>
-                </div>
-                <button class='btn btn-info' type='submit'><b>Sign In</b></button>
-            </form>
-            {% endif %}
-        </ul>
-    </div><!--/.nav-collapse -->
+            </li>
+
+          
+  <!--<form method='POST' class='navbar-form navbar-right'>{% csrf_token %}
+    <div class='form-group'>
+        <input class='form-control' type='text' placeholder='Username' name='username'>
+    </div>
+    <div class='form-group'>
+        <input class='form-control' type='password' placeholder='Password' name='password'>
+    </div>
+    <button class='btn btn-info' type='submit'><b>Sign In</b></button>
+</form>-->
+{% endif %}
+</ul>
+</div><!--/.nav-collapse -->
 </div>
 </div>
 {% endblock %}
