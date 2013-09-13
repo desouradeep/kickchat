@@ -8,9 +8,10 @@ from profiles.models import CustomUser
 from ipdb import set_trace as st
 
 def login_user(request):
-    if request.user.is_authenticated():
-        return redirect('/profile')
-    invalid = ''
+    #if request.user.is_authenticated():
+    #    return redirect('/profile')
+    #invalid = ''
+    print 2
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -21,29 +22,21 @@ def login_user(request):
             CustomClient = CustomUser.objects.get(user=request_user)
             CustomClient.is_online = True
             CustomClient.save()
-            return redirect('/profile')
+            return True
         else:
-            invalid = True
-            print("The username and password were incorrect.")
-
-    context = RequestContext(request, {
-        'invalid' : invalid,
-        'activated_navbar_element': activated_navbar_element,
-        'online' : '0',
-            })
-    #st()
-    return render_to_response('profile/login.html',context_instance=context)
+            return False
+    return False
 
 def logout_user(request):
     CustomClient = CustomUser.objects.get(user=request.user)
     CustomClient.is_online = False
     CustomClient.save()
     logout(request)
-    return redirect('/profile')
+    return redirect('/profile/register')
 
 def index(request):
     if not request.user.is_authenticated():
-        return redirect('/profile/login')
+        return redirect('/profile/register')
     current_user = CustomUser.objects.get(user=request.user)
     if request.GET.get('username'):
         auth_user = User.objects.get(username=request.GET.get('username'))
@@ -60,8 +53,13 @@ def index(request):
 
 def register(request):
     if request.user.is_authenticated():
-        return redirect('/profile')
+        return redirect('/profile/')
     if request.method == 'POST':
+        if request.POST['commit'] == 'Login':
+            if login_user(request) == True:
+                return redirect('/profile/')
+            else:
+                return redirect('/profile/register')
 
         duplicate_roll = CustomUser.objects.filter(roll_no=request.POST['roll_no'])
         duplicate_fb = CustomUser.objects.filter(fb_profile=request.POST['fb_profile'])
@@ -101,7 +99,7 @@ def register(request):
 
     context = RequestContext(request, {
         'details' : details,
-        'activated_navbar_element' : activated_navbar_element,
+        'activated_navbar_element' : 'Sign-Up',
         'online' : '0',
         })
     return render_to_response('profile/register.html',context_instance=context)

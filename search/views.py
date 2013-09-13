@@ -12,7 +12,7 @@ activated_navbar_element = 'search'
 
 def index(request):
     if not request.user.is_authenticated():
-        return redirect('/profile/login')
+        return redirect('/profile/register')
     user_not_found = False
     if request.GET.get('username'):
         CustomClient = CustomUser.objects.filter(username=request.GET.get('username'))

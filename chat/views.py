@@ -12,7 +12,7 @@ activated_navbar_element = 'chat'
 
 def index(request):
     if not request.user.is_authenticated():
-        return redirect('/profile/login')
+        return redirect('/profile/register')
     
     if request.method == 'POST':
         time = datetime.now()
