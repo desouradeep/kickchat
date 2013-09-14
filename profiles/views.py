@@ -55,7 +55,7 @@ def register(request):
     if request.user.is_authenticated():
         return redirect('/profile/')
     if request.method == 'POST':
-        if request.POST['commit'] == 'Login':
+        if request.POST['commit'] == 'Sign In':
             if login_user(request) == True:
                 return redirect('/profile/')
             else:

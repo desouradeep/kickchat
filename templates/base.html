@@ -19,6 +19,7 @@
       $(window).resize(function() {
           $('#chat-page').height($(window).height()-80)
       })
+      $('#chat-messages').scrollTop(99999999999)
   })
 
   </script>
@@ -49,15 +50,18 @@
             <li class="divider-vertical"></li>
             <li class="dropdown">
                 <a class="dropdown-toggle" href='#' data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-                <div class="dropdown-menu" style='height:250px;width:250px;'>
+                <div class="dropdown-menu" style='height:220px;width:250px;'>
                     <div style="padding-left:20px;padding-right:20px;padding-top:5px;">
-                        <h4>Sign In to start Kicking!</h4><hr>
+                        <h4>Sign In to start Kicking!</h4>
+                        <hr style='margin:10px 0px;'>
                         <form method="POST" accept-charset="UTF-8">{% csrf_token %}
-                            <input class='form-control' id="user_username" type="text" name="username" size=25 placeholder='Username'>
-                            <br>
-                            <input class='form-control' id="user_password" type="password" name="password" size=25 placeholder="Password" >
-                            <br>
+                            <div style='padding-top:0px;padding-bottom:10px;'>
+                            <input class='form-control' id="user_username" type="text" name="username" placeholder='Username'>
+                            </div>
+                            <input class='form-control' id="user_password" type="password" name="password" placeholder="Password" >
+                            <hr style='margin:10px 0px;'>
                             <div class="well well-sm" style='padding-top:5px;padding-bottom:35px;' >
+                                <a href='#' style='font-size:12px;position:absolute;bottom:29px;'>Forgot Password</a>
                                 <input class="btn btn-primary btn-sm pull-right" type="submit" name="commit" value="Sign In" >
                             </div>
                         </form>
@@ -92,3 +96,4 @@
 
 </body>
 </html>
+
