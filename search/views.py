@@ -7,6 +7,7 @@ from datetime import datetime
 from ipdb import set_trace as st
 from chat.models import message
 from profiles.models import CustomUser
+from django.contrib.auth.models import User
 
 activated_navbar_element = 'search'
 
@@ -15,9 +16,10 @@ def index(request):
         return redirect('/profile/register')
     user_not_found = False
     if request.GET.get('username'):
-        CustomClient = CustomUser.objects.filter(username=request.GET.get('username'))
-        if len(client) == 1:
-            return redirect('/profile?username='+client[0].username)
+        Client = User.objects.filter(username=request.GET.get('username'))
+        if len(Client) == 1:
+            CustomClient = CustomUser.objects.get(user=Client)
+            return redirect('/profile?username='+Client.username)
         else:
             user_not_found = True
     context = RequestContext(request, {

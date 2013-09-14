@@ -21,6 +21,7 @@ def index(request):
                       message=request.POST['msg']
               )
         msg.save()
+        return redirect('/chat')
 
     messages = message.objects.all()
     online_users = CustomUser.objects.filter(is_online=True)
