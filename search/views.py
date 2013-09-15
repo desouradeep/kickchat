@@ -4,7 +4,6 @@ from django.template import Context, RequestContext
 from django.template.response import TemplateResponse
 from django.core.paginator import Paginator
 from datetime import datetime
-from ipdb import set_trace as st
 from chat.models import message
 from profiles.models import CustomUser
 from django.contrib.auth.models import User
