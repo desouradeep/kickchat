@@ -5,7 +5,6 @@ from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.models import User
 activated_navbar_element = 'profile'
 from profiles.models import CustomUser
-from ipdb import set_trace as st
 
 def login_user(request):
     #if request.user.is_authenticated():
@@ -34,12 +33,14 @@ def logout_user(request):
     logout(request)
     return redirect('/profile/register')
 
-def index(request):
+def index(request, *args, **kwargs):
     if not request.user.is_authenticated():
         return redirect('/profile/register')
     current_user = CustomUser.objects.get(user=request.user)
-    if request.GET.get('username'):
-        auth_user = User.objects.get(username=request.GET.get('username'))
+    #from ipdb import set_trace as st; st()
+    if len(kwargs) == 1:
+        username = kwargs.pop('username')
+        auth_user = User.objects.get(username=username)
         query_user = CustomUser.objects.get(user=auth_user)
     else:
         query_user = current_user
