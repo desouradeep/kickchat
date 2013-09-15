@@ -25,7 +25,7 @@
                             {% for m in msg %}
                             <tr>
                                 <td id="chat-messages-inner">
-                                    <a href='/profile?username={{m.username}}'><b>{{ m.username }}</b></a>
+                                    <a href='/profile/{{m.username}}'><b>{{ m.username }}</b></a>
                                 </td>
                                 <td>
                                     {{ m.message  }}
@@ -42,7 +42,7 @@
             <br>
             <form method="POST" accept-charset="UTF-8">{% csrf_token %}
                 <div class="input-group">
-                    <input type="text" class="form-control" autofocus name='msg' placeholder="Text input">
+                    <input type="text" class="form-control" autocomplete="off" autofocus name='msg' placeholder="Text input">
                     <span class="input-group-btn">
                         <button class="btn btn-success" type="submit"><b>Send</b></button>
                     </span>
@@ -55,9 +55,9 @@
             <div class="list-group chat-messages" >
                 {% for i in online_users %}
                 {% if i.user.username ==  current_user.user.username %}
-                <a href="#" class="list-group-item active" >{{i.user.username}}</a>
+                <a href="/profile" class="list-group-item active" target='blank'>{{i.user.username}}</a>
                 {% else %}
-                <a href="#" class="list-group-item" >{{i.user.username}}</a>
+                <a href="/profile/{{i.user.username}}" target='blank' class="list-group-item" >{{i.user.username}}</a>
                 {% endif %}
                 {% endfor %}
             </div>
