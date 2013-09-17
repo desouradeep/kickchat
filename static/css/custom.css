@@ -1,3 +1,6 @@
+.break-next{
+  word-wrap:break-word;
+}
 .nopadding {
       padding: 0px !important;
     }
@@ -11,6 +14,7 @@
       border: 1px solid rgb(221, 221, 221);
       height: 100%;
       overflow: auto;
+       
       position: relative;
       
                }
@@ -20,6 +24,7 @@
 
 .chat-content {
       height: 480px;
+      
       padding: 0px;
         }
 .panel-left {
@@ -68,4 +73,4 @@
    .nonav{margin-bottom:0px;min-height:35px;position:relative;margin-top:10px;}
    .unipad{padding:3px;}
 
-  .nomargin{margin-bottom:6px;}
+  .nomargin{table-layout: fixed;margin-bottom:6px;}
