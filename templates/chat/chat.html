@@ -40,11 +40,11 @@
                 </div>
             </div>
             <br>
-            <form method="POST" accept-charset="UTF-8">{% csrf_token %}
+            <form id='input-box' method="POST" accept-charset="UTF-8">{% csrf_token %}
                 <div class="input-group">
-                    <input type="text" class="form-control" autocomplete="off" autofocus name='msg' placeholder="Text input">
+                    <input id='message-box' required type="text" class="form-control" autocomplete="off" autofocus name='msg' placeholder="Text input">
                     <span class="input-group-btn">
-                        <button class="btn btn-success" type="submit"><b>Send</b></button>
+                        <button id="send" class="btn btn-success"><b>Send</b></button>
                     </span>
                 </div>
 

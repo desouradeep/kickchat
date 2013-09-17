@@ -12,15 +12,16 @@ activated_navbar_element = 'chat'
 def index(request):
     if not request.user.is_authenticated():
         return redirect('/profile/register')
-    
-    if request.method == 'POST':
+    print request.is_ajax()
+    if request.method == 'POST' and request.is_ajax():
         time = datetime.now()
         msg = message(username=request.user.username,
                       time=datetime.now(),
-                      message=request.POST['msg']
+                      message=request.POST['message']
               )
         msg.save()
         return redirect('/chat')
+
 
     messages = message.objects.all()
     online_users = CustomUser.objects.filter(is_online=True)

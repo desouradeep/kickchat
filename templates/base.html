@@ -20,6 +20,16 @@
           $('#chat-page').height($(window).height()-80)
       })
       $('#chat-messages').scrollTop(99999999999)
+      $('#send').click(function(){
+          message = $('#message-box').val()
+          if (message != ''){
+            $.ajax({
+                type : 'POST',
+                data : {csrfmiddlewaretoken:'{{csrf_token}}', 'message':message }
+            });
+          }
+      });
+
   })
 
   </script>
