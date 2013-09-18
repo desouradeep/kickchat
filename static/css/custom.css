@@ -1,3 +1,9 @@
+.page-header{
+  font-size:4.5em;
+  margin-left: 9%;
+}
+
+
 .break-next{
   word-wrap:break-word;
 }
@@ -74,3 +80,8 @@
    .unipad{padding:3px;}
 
   .nomargin{table-layout: fixed;margin-bottom:6px;}
+  .display{display: inline;}
+.profile{font-weight: bold;font-size:1.5em;}
+
+.prof-table{float:left;margin-left:8%;}
+.leftalign{text-align: left}
