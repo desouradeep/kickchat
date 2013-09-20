@@ -12,19 +12,17 @@ activated_navbar_element = 'search'
 
 def index(request):
     if not request.user.is_authenticated():
-        return redirect('/profile/register')
+        return redirect('/')
     user_not_found = False
-    if request.GET.get('username'):
-        Client = User.objects.filter(username=request.GET.get('username'))
+    if request.method == 'POST':
+        Client = User.objects.filter(username=request.POST['username'])
         if len(Client) == 1:
-            CustomClient = CustomUser.objects.get(user=Client)
-            return redirect('/profile?username='+Client.username)
+            return redirect('/profile/' + Client[0].username)
         else:
             user_not_found = True
     context = RequestContext(request, {
         'activated_navbar_element': activated_navbar_element,
-        'online' : '1',
-        'current_user' : request.user,
+        'request_user' : request.user,
         'user_not_found' : user_not_found,
             })
     return render_to_response('search/search.html',context_instance=context)

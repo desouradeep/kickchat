@@ -3,14 +3,14 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <title>KickChat</title>
-  <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" />
-  <link href="{{STATIC_URL}}css/custom.css" rel="stylesheet" />
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/static/css/custom.css" rel="stylesheet" />
   <style>
   body {
       padding-top: 60px;
   }
   </style>
-  <script src="{{STATIC_URL}}js/jquery-1.10.2.min.js"></script> 
+  <script src="/static/js/jquery-1.10.2.min.js"></script> 
   <script type='text/javascript'>
   $(document).ready(function(){
       element = $('#{{ activated_navbar_element }}')
@@ -22,14 +22,47 @@
       $('#chat-messages').scrollTop(99999999999)
       $('#send').click(function(){
           message = $('#message-box').val()
-          if (message != ''){
-            $.ajax({
-                type : 'POST',
-                data : {csrfmiddlewaretoken:'{{csrf_token}}', 'message':message }
-            });
+              if (message != ''){
+                $.ajax({
+                  type : 'POST',
+                  data : {'commit':'message', csrfmiddlewaretoken:'{{csrf_token}}', 'message':message },
+                    success:function(data){
+                        $('#chat-table tr:last').after(data['table_row']);
+                        $('#chat-messages').scrollTop(99999999999)
+                    }
+                });
+              }
+              $('#message-box').val('')
+      });
+      $("#message-box").keyup(function (e) {
+          if (e.keyCode == 13) {
+              message = $('#message-box').val()
+              if (message != ''){
+                $.ajax({
+                  type : 'POST',
+                  data : {'commit':'message', csrfmiddlewaretoken:'{{csrf_token}}', 'message':message },
+                    success:function(data){
+                        $('#chat-table tr:last').after(data['table_row']);
+                        $('#chat-messages').scrollTop(99999999999)
+                  }
+                });
+              }
+              $('#message-box').val('')
           }
       });
-
+      $('#show-more').click(function(){
+          first = $('#chat-body').find("tr:first").attr('id')
+          $.ajax({
+                data : {'first': first},
+                success:function(data){
+                  $('#chat-body tr:first').before(data['old_messages']);
+                  if (data['disabled'])
+                  {
+                    $('#show-more').attr('disabled','disabled')
+                  }
+                }
+          });
+      });
   })
 
   </script>
@@ -41,7 +74,7 @@
   <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">KickChat</a>
+          <a class="navbar-brand" href="/">KickChat</a>
       </div>
       <div class="navbar-collapse collapse">
           <ul id='navbar' class="nav navbar-nav">
@@ -52,28 +85,62 @@
             <li id='about'><a href="/about">About</a></li>
         </ul>
         <ul class='nav navbar-nav navbar-right'>
-            {% if online == '1' %}
-            <li><a>Logged in as  <b>{{current_user.user.username}}</b></a></li>
-            <li><a href="/profile/logout">Logout</a></li>
+
+            {% if request_user.username != '' %}
+            <li><a>Logged in as  <b>{{request_user.username}}</b></a></li>
+            <li><a href="/logout">Logout</a></li>
             {% else %}
-            <li id='Sign-Up'><a href="/profile/register">Register</a></li>
             <li class="divider-vertical"></li>
             <li class="dropdown">
+                <a class="dropdown-toggle" href='#' data-toggle="dropdown">Register <strong class="caret"></strong></a>
+                <div class="dropdown-menu" style='height:390px;width:250px;'>
+                    <div style="padding-left:20px;padding-right:20px;padding-top:5px;">
+                        <h4>Register for KickChat!</h4>
+                        <hr style='margin:10px 0px;'>
+                        <form method="POST" accept-charset="UTF-8">{% csrf_token %}
+                            <div style='padding-top:0px;padding-bottom:10px;'>
+                              {{registration_form.firstname}}
+                            </div>
+                            <div style='padding-top:0px;padding-bottom:10px;'>
+                              {{registration_form.lastname}}
+                            </div>
+                            <div style='padding-top:0px;padding-bottom:10px;'>
+                              {{registration_form.username}}
+                            </div>
+                            <div style='padding-top:0px;padding-bottom:10px;'>
+                              {{registration_form.email}}
+                            </div>
+                            <div style='padding-top:0px;padding-bottom:10px;'>
+                              {{registration_form.password}}
+                            </div>
+                            {{registration_form.password2}}
+                            <hr style='margin:10px 0px;'>
+                            <div class="well well-sm" style='padding-top:5px;padding-bottom:35px;' >
+                                <input class='btn btn-default btn-sm pull-left' type='reset'>
+                                <input class="btn btn-success btn-sm pull-right" type="submit" name="commit" value="Register" >
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li class="dropdown">
                 <a class="dropdown-toggle" href='#' data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-                <div class="dropdown-menu" style='height:220px;width:250px;'>
+                <div class="dropdown-menu" style='height:212px;width:250px;'>
                     <div style="padding-left:20px;padding-right:20px;padding-top:5px;">
                         <h4>Sign In to start Kicking!</h4>
                         <hr style='margin:10px 0px;'>
                         <form method="POST" accept-charset="UTF-8">{% csrf_token %}
                             <div style='padding-top:0px;padding-bottom:10px;'>
-                            <input class='form-control' id="user_username" type="text" name="username" placeholder='Username'>
+                              {{ login_form.username }}
                             </div>
-                            <input class='form-control' id="user_password" type="password" name="password" placeholder="Password" >
+                            {{ login_form.password }}
                             <hr style='margin:10px 0px;'>
                             <div class="well well-sm" style='padding-top:5px;padding-bottom:35px;' >
-                                <a href='#' style='font-size:12px;position:absolute;bottom:29px;'>Forgot Password</a>
+                                <a href='#' style='font-size:12px;position:absolute;bottom:21px;'>Forgot Password</a>
                                 <input class="btn btn-primary btn-sm pull-right" type="submit" name="commit" value="Sign In" >
                             </div>
+                            
                         </form>
                     </div>
                 </div>
@@ -101,7 +168,7 @@
 </div>
 
 {% block js %}
-<script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
 {% endblock %}
 
 </body>

@@ -8,7 +8,7 @@
                     
 {%endif%}
 <div id="searchbox">
-            <form method="GET" accept-charset="UTF-8">
+            <form method="POST" accept-charset="UTF-8">{% csrf_token %}
                 <b>Enter username:<b><input type="text" class='form-control input-box' name="username" style='width:20%;'>
                      <button type='submit' class="btn btn-success">Search</button>
                 

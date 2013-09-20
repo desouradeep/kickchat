@@ -1,12 +1,9 @@
 {% extends "base.html" %}
 {% block container_content %}
-username:   {{ query_user.user.username }}
+
+username:   {{ query_user.username }}
 <br>
-Roll no:    {{query_user.roll_no }}
+Full name:  {{query_user.first_name}} {{query_user.last_name}} 
 <br>
-Full name:  {{query_user.user.first_name}} {{query_user.user.last_name}} 
-<br>
-fb_profile: {{query_user.fb_profile }}
-<br>
-email_id:   {{query_user.user.email}}
+email_id:   {{query_user.email}}
 {% endblock %}
