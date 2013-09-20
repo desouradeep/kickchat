@@ -69,7 +69,7 @@ MEDIA_URL = ''
 # Example: "/var/www/example.com/static/"
 STATIC_ROOT = ''
 
-DATETIME_FORMAT =  'M d, Y, h:i A'
+DATETIME_FORMAT =  'M d, Y, h:i:s A'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"

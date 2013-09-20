@@ -21,7 +21,7 @@ def index(request):
               )
         msg.save()
         username = request.user.username
-        time = msg.time.strftime('%b %d, %Y, %I:%M %p')
+        time = msg.time.strftime('%b %d, %Y, %I:%M:%S %p')
         table_row = '<tr id="%d"><td><a href=\'/profile/\'%s ><b>%s</b></a></td><td>%s</td><td style=\'font-size:10px;\'>%s</td></tr>' % (msg.id, msg.username, msg.username, msg.message, time)
         json_data = json.dumps({ 'table_row' : table_row })
         return HttpResponse(json_data, mimetype='application/json')
@@ -43,7 +43,7 @@ def index(request):
         html_rows = ''
 
         for m in messages:
-            time = m.time.strftime('%b %d, %Y, %I:%M %p')
+            time = m.time.strftime('%b %d, %Y, %I:%M:%S %p')
             html_rows += '<tr id="%d"><td><a href=\'/profile/\'%s ><b>%s</b></a></td><td>%s</td><td style=\'font-size:10px;\'>%s</td></tr>' % (m.id, m.username, m.username, m.message, time)
 
         disabled = False
