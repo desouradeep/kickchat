@@ -27,31 +27,39 @@ def index(request):
         return HttpResponse(json_data, mimetype='application/json')
 
     elif request.method == 'GET' and request.is_ajax():
-        new = 30
-        first = int(request.GET.get('first'))
 
-        new_first = 0
-        new_last = 0
+        if request.GET.get('commit') == 'new_message':
+            new = 30
+            first = int(request.GET.get('first'))
+            new_first = 0
+            new_last = 0
+            if first < new:
+                new_last = first - 1
+            else:
+                new_first = first - new
+                new_last = first
+            messages = message.objects.all()[new_first:new_last]
+            html_rows = ''
+            for m in messages:
+                time = m.time.strftime('%b %d, %Y, %I:%M:%S %p')
+                html_rows += '<tr id="%d"><td><a href=\'/profile/\'%s ><b>%s</b></a></td><td>%s</td><td style=\'font-size:10px;\'>%s</td></tr>' % (m.id, m.username, m.username, m.message, time)
+            disabled = False
+            if new_first == 0:
+                disabled = True
+            json_data = json.dumps({'old_messages': html_rows, 'disabled': disabled})
+            return HttpResponse(json_data, mimetype='application/json')
 
-        if first < new:
-            new_last = first - 1
-        else:
-            new_first = first - new
-            new_last = first
-
-        messages = message.objects.all()[new_first:new_last]
-        html_rows = ''
-
-        for m in messages:
-            time = m.time.strftime('%b %d, %Y, %I:%M:%S %p')
-            html_rows += '<tr id="%d"><td><a href=\'/profile/\'%s ><b>%s</b></a></td><td>%s</td><td style=\'font-size:10px;\'>%s</td></tr>' % (m.id, m.username, m.username, m.message, time)
-
-        disabled = False
-        if new_first == 0:
-            disabled = True
-
-        json_data = json.dumps({'old_messages': html_rows, 'disabled': disabled})
-        return HttpResponse(json_data, mimetype='application/json')
+        elif request.GET.get('commit') == 'refresh' and request.is_ajax():
+            last_id = int(request.GET.get('last_message'))
+            latest_message = message.objects.latest('time')
+            html_rows = ''
+            if latest_message.id > last_id:
+                messages = message.objects.all()[last_id:latest_message.id]
+                for m in messages:
+                    time = m.time.strftime('%b %d, %Y, %I:%M:%S %p')
+                    html_rows += '<tr id="%d"><td><a href=\'/profile/\'%s ><b>%s</b></a></td><td>%s</td><td style=\'font-size:10px;\'>%s</td></tr>' % (m.id, m.username, m.username, m.message, time)
+            json_data = json.dumps({'html_rows':html_rows})
+            return HttpResponse(json_data, mimetype='application/json')
 
     latest_message = message.objects.latest('time')
     messages = message.objects.all()[latest_message.id-30:latest_message.id]

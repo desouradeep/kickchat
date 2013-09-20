@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 
 {% block container_content %}
+<script type="text/javascript">
+    setInterval(function() {
+        last_message = $('#chat-body').find("tr:last").attr('id')
+        $.ajax({
+                data : { 'last_message':last_message, 'commit':'refresh'},
+                success:function(data){
+                    if(data['html_rows'] != '')
+                    {
+                        $('#chat-table tr:last').after(data['html_rows']);
+                        $('#chat-messages').scrollTop(99999999999)
+                    }
+              }
+          });
+    }, 2000); //2 seconds
+</script>
 <div id='chat-page' class="row" style="height:610px;">
 
     <div class='col-xs-2' style='height:100%;'>

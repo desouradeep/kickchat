@@ -53,7 +53,7 @@
       $('#show-more').click(function(){
           first = $('#chat-body').find("tr:first").attr('id')
           $.ajax({
-                data : {'first': first},
+                data : {'first': first, 'commit':'new_message'},
                 success:function(data){
                   $('#chat-body tr:first').before(data['old_messages']);
                   if (data['disabled'])
