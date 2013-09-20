@@ -58,6 +58,12 @@ def index(request):
             new_user.is_superuser = False
             new_user.save()
 
+            new_user_custom = CustomUser.objects.create(
+                user = new_user,
+                )
+            new_user_custom.is_online = True
+            new_user_custom.save()
+
             request_user = authenticate(username=request.POST['username'],
                     password=request.POST['password'])
             login(request,request_user)

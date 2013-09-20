@@ -13,6 +13,8 @@ import time
 def index(request):
     if not request.user.is_authenticated():
         return redirect('/')
+
+    # For message post
     if request.method == 'POST' and request.is_ajax():
         time = datetime.now()
         msg = message(username=request.user.username,
@@ -23,11 +25,12 @@ def index(request):
         username = request.user.username
         time = msg.time.strftime('%b %d, %Y, %I:%M:%S %p')
         table_row = '<tr id="%d"><td><a href=\'/profile/\'%s ><b>%s</b></a></td><td>%s</td><td style=\'font-size:10px;\'>%s</td></tr>' % (msg.id, msg.username, msg.username, msg.message, time)
-        json_data = json.dumps({ 'table_row' : table_row })
+        json_data = json.dumps({ 'table_row' : table_row , 'msg_id':msg.id})
         return HttpResponse(json_data, mimetype='application/json')
 
     elif request.method == 'GET' and request.is_ajax():
 
+        # For show-more
         if request.GET.get('commit') == 'new_message':
             new = 30
             first = int(request.GET.get('first'))
@@ -49,9 +52,13 @@ def index(request):
             json_data = json.dumps({'old_messages': html_rows, 'disabled': disabled})
             return HttpResponse(json_data, mimetype='application/json')
 
+        # For auto-refresh
         elif request.GET.get('commit') == 'refresh' and request.is_ajax():
             last_id = int(request.GET.get('last_message'))
-            latest_message = message.objects.latest('time')
+            if message.objects.count() > 0:
+                latest_message = message.objects.latest('time')
+            else:
+                latest_message = []
             html_rows = ''
             if latest_message.id > last_id:
                 messages = message.objects.all()[last_id:latest_message.id]
@@ -61,8 +68,15 @@ def index(request):
             json_data = json.dumps({'html_rows':html_rows})
             return HttpResponse(json_data, mimetype='application/json')
 
-    latest_message = message.objects.latest('time')
-    messages = message.objects.all()[latest_message.id-30:latest_message.id]
+    messages = []
+    if message.objects.count() > 0:
+        latest_message = message.objects.latest('time')
+        if latest_message.id > 31:
+            messages = message.objects.all()[latest_message.id-30:latest_message.id]
+        else:
+            messages = message.objects.all()
+    else:
+        latest_message = []
     online_users = CustomUser.objects.filter(is_online=True)
     current_user = User.objects.get(username=request.user.username)
     context = RequestContext(request, {

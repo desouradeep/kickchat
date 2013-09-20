@@ -50,6 +50,9 @@
               $('#message-box').val('')
           }
       });
+      if($('#chat-table tr').length == 1){
+              $('#show-more').attr('disabled','disabled')
+          }
       $('#show-more').click(function(){
           first = $('#chat-body').find("tr:first").attr('id')
           $.ajax({
