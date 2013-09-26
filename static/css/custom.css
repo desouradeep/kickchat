@@ -79,7 +79,7 @@
    .nonav{margin-bottom:0px;min-height:35px;position:relative;margin-top:10px;}
    .unipad{padding:3px;}
 
-  .nomargin{table-layout: fixed;margin-bottom:6px;}
+  .nomargin{table-layout:fixed;margin-bottom:6px;}
   .display{display: inline;}
 .profile{font-weight: bold;font-size:1.5em;}
 
