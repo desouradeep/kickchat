@@ -27,69 +27,31 @@
     </div>
 
 
-<<<<<<< HEAD
+
     <div class='col-xs-8 nopadding' style='height:100%;'>
         <div class="chat-content" style='height:91%;'>
-=======
-        <div class='col-xs-8 nopadding' style='height:100%;'>
-            <div class="chat-content" style='height:91%;'>
-                <div id="chat-messages" class="chat-messages">
-                    <table class="table table-striped table-hover msg-box nomargin">
-                        <thead class="nopadding">
-                            <tr>
-                                <th style='width:20%;'></th>
-                                <th style='width:67%;'></th>
-                                <th style='width:13%;'></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for m in msg %}
-                                <td id="chat-messages-inner" class="break-next">
-                                    <a href='/profile/{{m.username}}'><b>{{ m.username }}</b></a>
-                                </td>
-                                <td class="break-next">
-                                    {{ m.message  }}
-                                </td>
-                                <td style='font-size:10px;'>
-                                    {{ m.time }}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <br>
-            <form id='input-box' method="POST" accept-charset="UTF-8">{% csrf_token %}
-                <div class="input-group">
-                    <input id='message-box' required type="text" class="form-control" autocomplete="off" autofocus name='msg' placeholder="Text input">
-                    <span class="input-group-btn">
-                        <button id="send" class="btn btn-success"><b>Send</b></button>
-                    </span>
-                </div>
->>>>>>> dev2
 
             <div id="chat-messages" class="chat-messages">
                 <table id='chat-table' class="table table-striped table-hover msg-box nomargin">
                     <thead class="nopadding">
                         <tr>
-                            <th style='width:10%;'></th>
-                            <th style='width:70%;'>
+                            <th style='width:20%;'></th>
+                            <th style='width:67%;'>
                                 <button id='show-more' class='btn btn-link btn-block' style='padding:0px;'><b>Show More</b></button>
                             </th>
-                            <th style='width:20%;'></th>
+                            <th style='width:13%;'></th>
                         </tr>
                     </thead>
                     <tbody id='chat-body'>
                         {% for m in msg %}
                         <tr id={{m.id}}>
-                            <td>
+                            <td class="break-next" >
                                 <a href='/profile/{{m.username}}'><b>{{ m.username }}</b></a>
                             </td>
-                            <td>
+                            <td class="break-next">
                                 {{ m.message }}
                             </td>
-                            <td style='font-size:10px;'>
+                            <td style='font-size:10px;' class="break-next" >
                                 {{ m.time }}
                             </td>
                         </tr>
