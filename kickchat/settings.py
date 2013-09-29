@@ -1,6 +1,4 @@
 # Django settings for kickchat project.
-from django.conf import settings
-settings.DATETIME_FORMAT
 
 
 DEBUG = True
@@ -197,3 +195,5 @@ LOGGING = {
         },
     }
 }
+from django.conf import settings
+settings.DATETIME_FORMAT
