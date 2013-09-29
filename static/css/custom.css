@@ -1,3 +1,12 @@
+.page-header{
+  font-size:4.5em;
+  margin-left: 9%;
+}
+
+
+.break-next{
+  word-wrap:break-word;
+}
 .nopadding {
       padding: 0px !important;
     }
@@ -64,8 +73,13 @@
           margin-right: 90px;
           padding-top:0px;
         }
- .footer{font-size:15px;text-align:center;float:none;}
+ .footer{font-size:15px;text-align:center;}
    .nonav{margin-bottom:0px;min-height:35px;position:relative;margin-top:10px;}
    .unipad{padding:3px;}
 
-  .nomargin{margin-bottom:6px;}
+.nomargin{table-layout:fixed;margin-bottom:6px;}  
+ .display{display: inline;}
+.profile{font-weight: bold;font-size:1.5em;}
+
+.prof-table{float:left;margin-left:8%;}
+.leftalign{text-align: left}
