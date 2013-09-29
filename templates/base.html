@@ -66,6 +66,15 @@
                 }
           });
       });
+
+      //JS animations
+      $('#register-dropdown-toggle').click(function(){
+          $('#register-dropdown').slideToggle()
+      });
+      $('#signin-dropdown-toggle').click(function(){
+          $('#signin-dropdown').slideToggle()
+      });
+
   })
 
   </script>
@@ -93,10 +102,9 @@
             <li><a>Logged in as  <b>{{request_user.username}}</b></a></li>
             <li><a href="/logout">Logout</a></li>
             {% else %}
-            <li class="divider-vertical"></li>
             <li class="dropdown">
-                <a class="dropdown-toggle" href='#' data-toggle="dropdown">Register <strong class="caret"></strong></a>
-                <div class="dropdown-menu" style='height:390px;width:250px;'>
+                <a id='register-dropdown-toggle' href='' class="dropdown-toggle" data-toggle="dropdown">Register <strong class="caret"></strong></a>
+                <div id='register-dropdown' class="dropdown-menu" style='height:390px;width:250px;'>
                     <div style="padding-left:20px;padding-right:20px;padding-top:5px;">
                         <h4>Register for KickChat!</h4>
                         <hr style='margin:10px 0px;'>
@@ -128,8 +136,8 @@
                 </div>
             </li>
             <li class="dropdown">
-                <a class="dropdown-toggle" href='#' data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-                <div class="dropdown-menu" style='height:212px;width:250px;'>
+                <a id='signin-dropdown-toggle' class="dropdown-toggle" href='#' data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                <div id='signin-dropdown' class="dropdown-menu" style='height:212px;width:250px;'>
                     <div style="padding-left:20px;padding-right:20px;padding-top:5px;">
                         <h4>Sign In to start Kicking!</h4>
                         <hr style='margin:10px 0px;'>
