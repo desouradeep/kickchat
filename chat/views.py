@@ -30,7 +30,7 @@ def index(request):
                <a href=\'/profile/%s\' target="blank"><b>%s</b></a>
              </td>
              <td>%s</td>
-             <td style=\'font-size:10px;\'>%s</td>
+             <td style=\'font-size:11px;\'>%s</td>
            </tr>''' % (msg.id, msg.username, msg.username, msg.message, time)
         json_data = json.dumps({ 'table_row' : table_row , 'msg_id':msg.id})
         return HttpResponse(json_data, mimetype='application/json')
@@ -58,7 +58,7 @@ def index(request):
                        <a href=\'/profile/%s\' target="blank"><b>%s</b></a>
                       </td>
                      <td>%s</td>
-                     <td style=\'font-size:10px;\'>%s</td>
+                     <td style=\'font-size:11px;\'>%s</td>
                     </tr>''' % (m.id, m.username, m.username, m.message, time)
             disabled = False
             if new_first == 0:
@@ -84,7 +84,7 @@ def index(request):
                            <a href=\'/profile/%s\' target="blank"><b>%s</b></a>
                          </td>
                          <td>%s</td>
-                         <td style=\'font-size:10px;\'>%s</td>
+                         <td style=\'font-size:11px;\'>%s</td>
                        </tr>''' % (m.id, m.username, m.username, m.message, time)
             json_data = json.dumps({'html_rows':html_rows})
             return HttpResponse(json_data, mimetype='application/json')

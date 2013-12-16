@@ -7,7 +7,8 @@
   <link href="/static/css/custom.css" rel="stylesheet" />
   <style>
   body {
-      padding-top: 60px;
+    padding-top: 50px;
+    background : #F6F6F6;
   }
   </style>
   <script src="/static/js/jquery-1.10.2.min.js"></script> 
@@ -15,9 +16,14 @@
   $(document).ready(function(){
       element = $('#{{ activated_navbar_element }}')
       element.attr('class','active')
-      $('#chat-page').height($(window).height()-80)
+      $('#chat-page').height($(window).height()-50)
       $(window).resize(function() {
-          $('#chat-page').height($(window).height()-80)
+          $('#chat-page').height($(window).height()-50)
+      })
+      $('#chat-content').height($(window).height()-50-43)
+      console.log($(window).height()-50-43)
+      $(window).resize(function() {
+            $('#chat-content').height($(window).height()-50-43)
       })
       $('#chat-messages').scrollTop(99999999999)
       $('#send').click(function(){
