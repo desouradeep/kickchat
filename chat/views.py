@@ -24,21 +24,15 @@ def index(request):
         msg.save()
         username = request.user.username
         time = msg.time.strftime('%b %d, %Y, %I:%M:%S %p')
-        table_row = '''
-           <tr id="%d">
-             <td>
-               <a href=\'/profile/%s\' target="blank"><b>%s</b></a>
-             </td>
-             <td>%s</td>
-             <td style=\'font-size:11px;\'>%s</td>
-           </tr>''' % (msg.id, msg.username, msg.username, msg.message, time)
-        json_data = json.dumps({ 'table_row' : table_row , 'msg_id':msg.id})
+        json_data = json.dumps({ 'id':msg.id, 'username':msg.username,
+                                 'message':msg.message, 'time':time
+                    })
         return HttpResponse(json_data, mimetype='application/json')
 
     elif request.method == 'GET' and request.is_ajax():
 
         # For show-more
-        if request.GET.get('commit') == 'new_message':
+        if request.GET.get('commit') == 'get_old_messages':
             new = 30
             first = int(request.GET.get('first'))
             new_first = 0
@@ -50,20 +44,18 @@ def index(request):
                 new_last = first
             messages = message.objects.all()[new_first:new_last]
             html_rows = ''
+            message_data = []
             for m in messages:
                 time = m.time.strftime('%b %d, %Y, %I:%M:%S %p')
-                html_rows += '''
-                   <tr id="%d">
-                     <td>
-                       <a href=\'/profile/%s\' target="blank"><b>%s</b></a>
-                      </td>
-                     <td>%s</td>
-                     <td style=\'font-size:11px;\'>%s</td>
-                    </tr>''' % (m.id, m.username, m.username, m.message, time)
+                message_data.append({'id' : m.id,
+                                     'username' : m.username,
+                                     'message' : m.message,
+                                     'time' : time
+                            })
             disabled = False
             if new_first == 0:
                 disabled = True
-            json_data = json.dumps({'old_messages': html_rows, 'disabled': disabled})
+            json_data = json.dumps({'old_messages': message_data, 'disabled': disabled})
             return HttpResponse(json_data, mimetype='application/json')
 
         # For auto-refresh
@@ -74,19 +66,17 @@ def index(request):
             else:
                 latest_message = []
             html_rows = ''
+            new_messages = []
             if latest_message.id > last_id:
                 messages = message.objects.all()[last_id:latest_message.id]
                 for m in messages:
                     time = m.time.strftime('%b %d, %Y, %I:%M:%S %p')
-                    html_rows += '''
-                       <tr id="%d">
-                         <td>
-                           <a href=\'/profile/%s\' target="blank"><b>%s</b></a>
-                         </td>
-                         <td>%s</td>
-                         <td style=\'font-size:11px;\'>%s</td>
-                       </tr>''' % (m.id, m.username, m.username, m.message, time)
-            json_data = json.dumps({'html_rows':html_rows})
+                    new_messages.append({'id' : m.id,
+                                         'username' : m.username,
+                                         'message' : m.message,
+                                         'time' : time
+                                })
+            json_data = json.dumps({'new_messages':new_messages})
             return HttpResponse(json_data, mimetype='application/json')
 
     messages = []

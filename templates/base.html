@@ -13,6 +13,40 @@
   </style>
   <script src="/static/js/jquery-1.10.2.min.js"></script> 
   <script type='text/javascript'>
+  function render_html(json_data){
+    html_row = 
+     '<tr id=' + json_data['id'] + '> \
+        <td style=\'padding-left:5px;\'> \
+          <a href=\'/profile/' + json_data['username'] + '\'> \
+            <img src=\'/static/images/images.jpg\' height=20px width=20px</img> \
+            <b>' + json_data['username'] + '</b> \
+          </a> \
+        </td> \
+        <td>' + json_data['message'] + '</td> \
+        <td style=\'font-size:11px;\'>' + json_data['time'] + '</td> \
+      </tr>'
+    return html_row;
+  }
+  function send_message(commit){
+    message = $('#message-box').val()
+    if (message != ''){
+      $.ajax({
+        type : 'POST',
+        data :  {'commit':commit, csrfmiddlewaretoken:'{{csrf_token}}', 'message':message },
+                success:function(json_data){
+                  html_row = render_html(json_data)
+                  last_message_id = $('#chat-body').find("tr:last").attr('id')
+                  if(json_data['id'] > last_message_id){
+                    $('#chat-table tr:last').after(html_row);
+                    console.log('scrolling')
+                    $('#chat-messages').scrollTop(9999999)
+                  }
+                }
+      });
+    }
+    $('#message-box').val('')
+  }
+
   $(document).ready(function(){
       element = $('#{{ activated_navbar_element }}')
       element.attr('class','active')
@@ -21,40 +55,18 @@
           $('#chat-page').height($(window).height()-50)
       })
       $('#chat-content').height($(window).height()-50-43)
-      console.log($(window).height()-50-43)
       $(window).resize(function() {
             $('#chat-content').height($(window).height()-50-43)
       })
       $('#chat-messages').scrollTop(99999999999)
+
       $('#send').click(function(){
-          message = $('#message-box').val()
-              if (message != ''){
-                $.ajax({
-                  type : 'POST',
-                  data : {'commit':'message', csrfmiddlewaretoken:'{{csrf_token}}', 'message':message },
-                    success:function(data){
-                        $('#chat-table tr:last').after(data['table_row']);
-                        $('#chat-messages').scrollTop(99999999999)
-                    }
-                });
-              }
-              $('#message-box').val('')
+          send_message('new_message');
       });
       $("#message-box").keyup(function (e) {
           if (e.keyCode == 13) {
-              message = $('#message-box').val()
-              if (message != ''){
-                $.ajax({
-                  type : 'POST',
-                  data : {'commit':'message', csrfmiddlewaretoken:'{{csrf_token}}', 'message':message },
-                    success:function(data){
-                        $('#chat-table tr:last').after(data['table_row']);
-                        $('#chat-messages').scrollTop(99999999999)
-                  }
-                });
+              send_message('new_message');
               }
-              $('#message-box').val('')
-          }
       });
       if($('#chat-table tr').length == 1){
               $('#show-more').attr('disabled','disabled')
@@ -62,10 +74,14 @@
       $('#show-more').click(function(){
           first = $('#chat-body').find("tr:first").attr('id')
           $.ajax({
-                data : {'first': first, 'commit':'new_message'},
-                success:function(data){
-                  $('#chat-body tr:first').before(data['old_messages']);
-                  if (data['disabled'])
+                data : {'first': first, 'commit':'get_old_messages'},
+                success:function(json_data){
+                  html_row = ''
+                  for(i=0;i<json_data['old_messages'].length;i++){
+                    html_row += render_html(json_data['old_messages'][i])
+                  }
+                  $('#chat-body tr:first').before(html_row);
+                  if (json_data['disabled'])
                   {
                     $('#show-more').attr('disabled','disabled')
                   }

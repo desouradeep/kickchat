@@ -56,15 +56,19 @@ td{
 </style>
 <script type="text/javascript">
     setInterval(function() {
-        last_message = $('#chat-body').find("tr:last").attr('id')
+        last_message_id = $('#chat-body').find("tr:last").attr('id')
         $.ajax({
-                data : { 'last_message':last_message, 'commit':'refresh'},
-                success:function(data){
-                    if(data['html_rows'] != '')
+                data : { 'last_message':last_message_id, 'commit':'refresh'},
+                success:function(json_data){
+                    if(json_data['new_messages'] != '')
                     {
-                        if(data['msg_id'] != last_message){
-                            $('#chat-table tr:last').after(data['html_rows']);
-                            $('#chat-messages').scrollTop(99999999999)
+                        html_rows = ''
+                        for(i=0;i<json_data['new_messages'].length;i++){
+                            html_rows += render_html(json_data['new_messages'][i])
+                        }
+                        if(json_data['new_messages'][0]['id'] > last_message_id){
+                            $('#chat-table tr:last').after(html_rows);
+                            $('#chat-messages').scrollTop(9999999)
                         }
                     }
                 }
