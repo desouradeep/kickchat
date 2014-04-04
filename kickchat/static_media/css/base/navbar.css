@@ -1,0 +1,7 @@
+.navbar {
+    font-size: 16px;
+}
+
+.navbar-element-selected {
+    color: rgb(58, 58, 58) !important;
+}

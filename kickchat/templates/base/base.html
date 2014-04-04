@@ -1,16 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>KickChat</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" />
-    <script type="text/javascript" href="{{STATIC_URL}}js/jquery.min.js"></script>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>KickChat</title>
+  <link href="{{STATIC_URL}}css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+  <link href="{{STATIC_URL}}css/base/navbar.css" rel="stylesheet" />
+  <link href="{{STATIC_URL}}css/base/base.css" rel="stylesheet" />
+  {% block extra_css %}{% endblock %}
+  <style>
+  body {
+    padding-top: 50px;
+    background : #F6F6F6;
+  }
+  </style>
 </head>
-
 <body>
+    {% block navbar %}
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+            <a class="navbar-brand" href="/">KickChat</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul id='navbar' class="nav navbar-nav">
+                <li class='nav-element' id='chat'><a href="/chat">Chat</a></li>
+                <li class='nav-element' id='profile'><a href="/profile">Profile</a></li>
+                <li class='nav-element' id='search'><a href="/search">Search</a></li>
+                <li class='nav-element' id='groups'><a href="/groups">Groups</a></li>
+                <li class='nav-element' id='about'><a href="/about">About</a></li>
+            </ul>
+            <ul class='nav navbar-nav navbar-right'>
+            </ul>
+        </div><!--/.nav-collapse -->
+        </div>
+    </div>
+    {% endblock %}
 
+    <div class="main-content container">
+       {% block page_content %}{% endblock %}
+    </div>
 
-    hello
+{% block js %}
+<script src="{{STATIC_URL}}js/jquery.min.js"></script>
+<script src="{{STATIC_URL}}js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript">
+    activate_element = "#{{activate_navbar_element_id}}";
+</script>
+<script src="{{STATIC_URL}}js/base/base.js"></script>
+{% block extra_js %}{% endblock %}
+{% endblock %}
+
 </body>
-
 </html>
+
