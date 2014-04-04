@@ -1,0 +1,1 @@
+CREATE USER 'kickchat'@'localhost' IDENTIFIED BY 'kickme';
