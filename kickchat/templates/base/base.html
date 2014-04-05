@@ -3,9 +3,9 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <title>KickChat</title>
-  <link href="{{STATIC_URL}}css/bootstrap/bootstrap.min.css" rel="stylesheet" />
-  <link href="{{STATIC_URL}}css/base/navbar.css" rel="stylesheet" />
-  <link href="{{STATIC_URL}}css/base/base.css" rel="stylesheet" />
+  <link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="{{STATIC_URL}}base/css/navbar.css" rel="stylesheet" />
+  <link href="{{STATIC_URL}}base/css/base.css" rel="stylesheet" />
   {% block extra_css %}{% endblock %}
   <style>
   body {
@@ -42,12 +42,12 @@
     </div>
 
 {% block js %}
-<script src="{{STATIC_URL}}js/jquery.min.js"></script>
-<script src="{{STATIC_URL}}js/bootstrap/bootstrap.min.js"></script>
+<script src="{{STATIC_URL}}jquery.min.js"></script>
+<script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     activate_element = "#{{activate_navbar_element_id}}";
 </script>
-<script src="{{STATIC_URL}}js/base/base.js"></script>
+<script src="{{STATIC_URL}}base/js/base.js"></script>
 {% block extra_js %}{% endblock %}
 {% endblock %}
 
