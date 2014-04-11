@@ -1,0 +1,31 @@
+.main-content {
+    padding-top: 10px;
+}
+.chat-table-heading-username {
+    width: 15%;
+}
+.chat-table-heading-message {
+    width: 70%;
+}
+.chat-table-heading-timestamp {
+    width: 15%;
+}
+.chat-timestamp {
+    font-size: 12px;
+    font-style: italic;
+}
+.chat-username>a {
+    text-decoration: none !important;
+}
+#message-column {
+    overflow: auto;
+    border: 1px solid #dddddd;
+}
+#chat-input-group {
+    width: 100%;
+}
+.chat-message, .chat-username, .chat-timestamp {
+    word-wrap : break-word;
+    border-color: rgba(206, 206, 206, 0.3) !important;
+    padding: 2px !important;
+}
