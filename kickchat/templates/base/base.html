@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>KickChat - {% block head_title %}{% endblock %}</title>
-  <link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="{{STATIC_URL}}base/css/navbar.css" rel="stylesheet" />
-  <link href="{{STATIC_URL}}base/css/base.css" rel="stylesheet" />
-  <link href="{{STATIC_URL}}fonts/css/fonts.css" rel="stylesheet" />
-  {% block extra_css %}{% endblock %}
-  <style>
-  body {
-    padding-top: 50px;
-    background : #F6F6F6;
-  }
-  </style>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>KickChat - {% block head_title %}{% endblock %}</title>
+    <link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{STATIC_URL}}base/css/navbar.css" rel="stylesheet" />
+    <link href="{{STATIC_URL}}base/css/base.css" rel="stylesheet" />
+    <link href="{{STATIC_URL}}fonts/css/fonts.css" rel="stylesheet" />
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
     {% block navbar %}

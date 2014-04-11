@@ -1,7 +1,15 @@
 .navbar {
     font-size: 16px;
+    border-width: 0 0 4px 0;
+    background-color: #222;
+    border-color: #3EA6AF;
 }
 
-.navbar-element-selected {
-    color: rgb(58, 58, 58) !important;
+.navbar-brand:hover, .nav-element>a:hover {
+    color: white !important;
+}
+
+
+.navbar-element-selected, .navbar-brand{
+    color: white !important;
 }
