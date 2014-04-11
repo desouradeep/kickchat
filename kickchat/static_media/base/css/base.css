@@ -6,3 +6,15 @@ body {
     padding-top: 50px;
     background : #F6F6F6;
   }
+
+hr {
+    border-color: #3EA6AF;
+}
+
+.inline {
+    display: inline;
+}
+
+.sticker-heading {
+    color: white;
+}

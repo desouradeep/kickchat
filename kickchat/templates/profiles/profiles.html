@@ -1,4 +1,48 @@
 {% extends "base/base.html" %}
+
+{% block extra_css %}
+<link href="{{STATIC_URL}}/profiles/css/profiles.css" rel="stylesheet" />
+{% endblock %}
+
 {% block page_content %}
-profiles
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="inline" style="color:white;">Posts</h3>
+            </div>
+            <div class="panel-body">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="inline sticker-heading">About Me</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{STATIC_URL}}images/default_dp.jpg" width=100% height=100%>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-4"><b>Name</b></div>
+                                <div class="col-md-8">{{ user_details.fullname }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><b>Username</b></div>
+                                <div class="col-md-8">{{ user_details.username}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><b>Email ID</b></div>
+                                <div class="col-md-8">{{ user_details.email }}</div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock%}

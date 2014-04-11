@@ -9,7 +9,11 @@
     color: white !important;
 }
 
-
-.navbar-element-selected, .navbar-brand{
+.navbar-element-selected{
     color: white !important;
 }
+
+.navbar-brand {
+    color: white !important;
+}
+

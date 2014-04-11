@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'home.views.index', name='home'),
     url(r'^chat/', 'chat.views.index', name='chat'),
-    url(r'^profile/', 'profiles.views.index', name='profile'),
+    url(r'^profile/', include('profiles.urls',namespace='profile')),
     url(r'^search/', 'search.views.index', name='search'),
     url(r'^groups/', 'groups.views.index', name='groups'),
     url(r'^about/', 'home.views.about', name='about'),
