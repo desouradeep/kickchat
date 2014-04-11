@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>KickChat</title>
+  <title>KickChat - {% block head_title %}{% endblock %}</title>
   <link href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet" />
   <link href="{{STATIC_URL}}base/css/navbar.css" rel="stylesheet" />
   <link href="{{STATIC_URL}}base/css/base.css" rel="stylesheet" />
+  <link href="{{STATIC_URL}}fonts/css/fonts.css" rel="stylesheet" />
   {% block extra_css %}{% endblock %}
   <style>
   body {
@@ -31,6 +32,14 @@
                 <li class='nav-element' id='about'><a href="/about">About</a></li>
             </ul>
             <ul class='nav navbar-nav navbar-right'>
+                {% if request.user.is_authenticated %}
+                    <li class='nav-element'><a>Logged in as <b>{{ request.user }}</b> </a></li>
+                    <li class='nav-element' id='logout'><a href="/accounts/logout">Logout</a></li>
+                {% else %}
+                    <li class='nav-element' id='login'><a href="/accounts/login">Sign In</a></li>
+                    <li class='nav-element' id='register'><a href="/accounts/signup">Register</a></li>
+                {% endif %}
+                
             </ul>
         </div><!--/.nav-collapse -->
         </div>

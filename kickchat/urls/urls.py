@@ -13,6 +13,10 @@ urlpatterns = patterns('',
     url(r'^groups/', 'groups.views.index', name='groups'),
     url(r'^about/', 'home.views.about', name='about'),
 
+    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout',
+     {'next_page': '/'}),
+    url(r'^accounts/', include('allauth.urls')),
+
     # url(r'^kickchat/', include('kickchat.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
