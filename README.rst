@@ -1,1 +1,5 @@
-CREATE USER 'kickchat'@'localhost' IDENTIFIED BY 'kickme';
+KickChat
+========
+
+A small chat system built using django
+
