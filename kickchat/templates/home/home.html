@@ -1,4 +1,60 @@
 {% extends "base/base.html" %}
+
+{% block extra_css %}
+<link href="{{STATIC_URL}}accounts/css/accounts.css" rel="stylesheet" />
+{% endblock %}
+
 {% block page_content %}
-home
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-7 well">
+            <div id="{{ ID_1 }}">
+                1
+            </div>
+        </div>
+        {% if not request.user.is_authenticated %}
+        <div class="col-md-5">
+            <div id="{{ ID_2 }}" class="well">
+                2
+            </div>
+            <div id="{{ ID_3 }}" class="well">
+                3
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock%}
+
+{% block extra_js %}
+<script type="text/javascript">
+function send_request(element_id) {
+    console.log(element_id)
+    $.ajax({
+        url: pagelets[ids[element_id]],
+        success: function(html) {
+            var html_element = $('#' + ids[element_id]);
+            html_element.html(html);
+        }
+    });
+}
+function load_pagelets() {
+    pagelets = {{ pagelets|safe }}
+    console.log(pagelets)
+    ids = {{ ids|safe }}
+    console.log(ids)
+    count = {{ count }}
+    for(var i =1; i <= count; i++)
+    {
+        var element_id = 'ID_' + i;
+        send_request(element_id);
+        
+    }
+}
+$(document).ready(function(){
+    load_pagelets();
+});
+</script>
+{% endblock %}

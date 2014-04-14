@@ -1,0 +1,14 @@
+#fb-login-button {
+  width: 100%;
+  background-color: rgb(94, 110, 162);
+  border-color: #19576E;
+  font-size: 18px;
+}
+
+.left-form-field {
+    padding-right: 5px;
+}
+
+.right-form-field {
+    padding-left: 5px
+}

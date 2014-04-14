@@ -30,6 +30,3 @@ def index(request, *args, **kwargs):
         context_instance=context
     )
 
-def fb(request):
-    from ipdb import set_trace as st;st()
-    return HttpResponse(request.POST['access_token'])

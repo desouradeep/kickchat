@@ -125,10 +125,12 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'home',
     'chat',
     'search',
     'profiles',
     'groups',
+    'allauth',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -231,5 +233,5 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+

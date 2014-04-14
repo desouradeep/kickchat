@@ -29,9 +29,6 @@
                 {% if request.user.is_authenticated %}
                     <li class='nav-element'><a>Logged in as <b>{{ request.user }}</b> </a></li>
                     <li class='nav-element' id='logout'><a href="/accounts/logout">Logout</a></li>
-                {% else %}
-                    <li class='nav-element' id='login'><a href="/accounts/login">Sign In</a></li>
-                    <li class='nav-element' id='register'><a href="/accounts/signup">Register</a></li>
                 {% endif %}
                 
             </ul>

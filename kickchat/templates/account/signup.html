@@ -1,26 +1,41 @@
-{% extends "account/base.html" %}
-
 {% load url from future %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
-
 {% block content %}
+
+<h1 class="inline">{% trans "Sign Up" %}</h1>
+<hr>
+<p>{% blocktrans %}Dont have an account? Sign up below.{% endblocktrans %}</p>
 <br>
-<div class="well">
-<h1>{% trans "Sign Up" %}</h1>
-
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-
 <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6 left-form-field">
+            <input autofocus="autofocus" id="id_username" class="form-control" maxlength="30" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="col-md-6 right-form-field">
+            <input id="id_email" class="form-control" name="email" placeholder="E-mail address" type="text">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6 left-form-field">
+            <input id="id_password1" class="form-control" name="password1" placeholder="Password" type="password">
+        </div>
+        <div class="col-md-6 right-form-field">
+            <input id="id_password2" class="form-control" name="password2" placeholder="Confirm Password" type="password">
+        </div>
+    </div>
+  <input id="id_confirmation_key" class="form-control " name="confirmation_key" type="hidden">
+
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
+  <br>
+  <button type="reset" class="btn btn-default pull-left">{% trans "Reset" %}</button>
+  <button type="submit" class="btn btn-success pull-right">{% trans "Sign Up" %}</button>
+  <br><br>
 </form>
-</div>
 
 
 {% endblock %}

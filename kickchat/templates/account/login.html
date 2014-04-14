@@ -1,49 +1,90 @@
-{% extends "account/base.html" %}
 
 {% load i18n %}
 {% load account %}
 {% load url from future %}
+{% load socialaccount %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
 
 {% block content %}
-<br>
-<div class="well">
-<h1>{% trans "Sign In" %}</h1>
+<div class="">
+<h1 class="inline">{% trans "Sign In" %}</h1>
+<hr>
 
 {% if socialaccount.providers  %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{site_name}} account and sign in below:{% endblocktrans %}</p>
+    <p>{% blocktrans with site.name as site_name %}Sign In with Facebook or, sign up for a {{site_name}} account and sign in below:{% endblocktrans %}</p>
 
-<div class="row">
-  <div class="col-md-6">
-    <div class="socialaccount_ballot">
-        <ul class="socialaccount_providers">
-          {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-        </ul>
+    <br>
+    {% for provider in socialaccount.providers %}
+        <a id='fb-login-button' title="{{provider.name}}" class="btn btn-primary btn-lg socialaccount_provider {{provider.id}}" href="{% provider_login_url provider.id process=process %}">SIGN IN WITH {{provider.name}}</a>
+    {% endfor %}
+    <br><br>
 
-           
-
-    </div>
+    <center>OR</center>
+    <br>
 
     {% include "socialaccount/snippets/login_extra.html" %}
-
     {% else %}
         <p>{% blocktrans %}If you have not created an account yet, then please
         <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
     {% endif %}
-  </div>
-  <div class="col-md-6">
+  
     <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
-        {{ form.as_p }}
-        {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-        <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+        <div class="row">
+            <div class="col-md-6 left-form-field">
+                <input autofocus="autofocus" id="id_login" class="form-control" maxlength="30" name="login" placeholder="Username" type="text" autocomplete="off">
+            </div>
+            <div class="col-md-6 right-form-field">
+                <input id="id_password" name="password" class="form-control" placeholder="Password" type="password" autocomplete="off" style="">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <a id="forgot-password" class="button secondaryAction btn btn-default">{% trans "Forgot Password" %}</a>
+            </div>
+            <div class="col-md-6">
+                <input id="id_remember" name="remember" type="checkbox">
+                <label for="id_remember">Remember Me</label>
+                <button class="primaryAction btn btn-success pull-right" type="submit">{% trans "Sign In" %}</button>
+            </div>
     </form>
+</div>
+<div class="modal fade" id="accountsModal" tabindex="-1" role="dialog" aria-labelledby="accountsModallLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="accountsModallLabel"></h4>
+      </div>
+      <div id="accountsModallBody" class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#forgot-password').click(function(){
+        $.ajax({
+            url: "{% url 'account_reset_password' %}",
+            success: function(html){
+                console.log(html);
+                $('#accountsModallLabel').html('Reset Password');
+                $('#accountsModallBody').html(html);
+                $('#accountsModal').modal();
+            }
+        });
+    });
+});
+</script>
 {% endblock %}
